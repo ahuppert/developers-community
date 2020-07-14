@@ -233,9 +233,28 @@ At the beginning of a chat session or when a messaging bot logs in, the whole li
 
 When a transfer is requested by the bot, the skill name is matched to one already on the account and the id is retrieved and escalated to.
 
-For **Microsoft Bot Framework**, the bot should provide the specific action in the **channelData** of the message activity.
+For **Microsoft Bot Framework**, the bot should provide the specific name in the payload of the message activity.
+You can use the official Microsoft BotBuilder SDK method called [EventFactory.createHandoffInitiation](https://docs.microsoft.com/en-us/javascript/api/botbuilder/eventfactory?view=botbuilder-ts-latest).
 
 An additional text message can also be provided.
+
+```javascript
+{
+  import { EventFactory, TurnContext } from "botbuilder";
+
+  // context should be of type TurnContext
+  const handoffContext = { skill: "CUSTOM" };
+
+  const payload = {
+    text: "",
+    ...EventFactory.createHandoffInitiation(context, handoffContext),
+  };
+}
+```
+
+Figure 7.1 Activity excerpt for a transfer Request
+
+As an alternative way for a transfer request, the bot can also provide the specific action in the **channelData** of the message activity and an additional text message (optional).
 
 ```json
 {
@@ -249,17 +268,6 @@ An additional text message can also be provided.
       }
     }
   }
-}
-```
-
-Figure 7.1 Activity excerpt for a transfer Request
-
-Also, you can use the official Microsoft BotBuilder SDK method called [EventFactory.createHandoffInitiation](https://docs.microsoft.com/en-us/javascript/api/botbuilder/eventfactory?view=botbuilder-ts-latest) and you can also add an additional text message.
-
-```javascript
-{
-  text: "",
-  ...EventFactory.createHandoffInitiation(context, handoffContext, transcript)
 }
 ```
 
@@ -412,7 +420,20 @@ A single private text message with action can be send by adding `text` and `mess
 
 ### Close Chat/Conversation
 
-To close a chat or messaging conversation, we provide the action object as we did for a transfer. The activity should contain the following action.
+To close a chat or messaging conversation, we should provide a special activity type (endOfConversation).
+
+For that, we can use the official Microsoft BotBuilder Activity Type [End of Conversation](https://docs.microsoft.com/en-us/azure/bot-service/dotnet/bot-builder-dotnet-activities?view=azure-bot-service-3.0#endofconversation) with an additional text message:
+
+```json
+{
+  "type": "endOfConversation",
+  "text": ""
+}
+```
+
+Figure 9.1 Activity excerpt for a close conversation request
+
+As an alternative way, we can provide the action object as we did for a transfer. The activity should contain the following action.
 
 An additional text message can also be provided.
 
@@ -425,17 +446,6 @@ An additional text message can also be provided.
       "name": "CLOSE_CONVERSATION"
     }
   }
-}
-```
-
-Figure 9.1 Activity excerpt for a close conversation request
-
-Also, you can use the official Microsoft BotBuilder Activity Type [End of Conversation](https://docs.microsoft.com/en-us/azure/bot-service/dotnet/bot-builder-dotnet-activities?view=azure-bot-service-3.0#endofconversation) with an additional text message:
-
-```json
-{
-  "type": "endOfConversation",
-  "text": ""
 }
 ```
 
