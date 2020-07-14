@@ -254,7 +254,7 @@ An additional text message can also be provided.
 
 Figure 7.1 Activity excerpt for a transfer Request
 
-Also, you can use the official Microsoft BotBuilder SDK method called [EventFactory.createHandoffInitiation](https://docs.microsoft.com/en-us/javascript/api/botbuilder/eventfactory?view=botbuilder-ts-latest) and you can also add an additional text message.
+Also, you can use the official Microsoft BotBuilder SDK method called [EventFactory.createHandoffInitiation](https://docs.microsoft.com/en-us/javascript/api/botbuilder/eventfactory?view=botbuilder-ts-latest) and you can also add text message.
 
 ```javascript
 {
