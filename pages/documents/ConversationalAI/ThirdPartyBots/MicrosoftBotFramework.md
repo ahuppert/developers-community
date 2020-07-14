@@ -254,6 +254,17 @@ An additional text message can also be provided.
 
 Figure 7.1 Activity excerpt for a transfer Request
 
+Also, you can use the official Microsoft BotBuilder SDK method called [EventFactory.createHandoffInitiation](https://docs.microsoft.com/en-us/javascript/api/botbuilder/eventfactory?view=botbuilder-ts-latest) and you can also add an additional text message.
+
+```javascript
+{
+  text: "",
+  ...EventFactory.createHandoffInitiation(context, handoffContext, transcript)
+}
+```
+
+Figure 7.2 Alternative activity excerpt for a transfer Request
+
 ### Sending Pause/Delay Message
 
 It is possible to send an event of type "delay" before regular content events and actions. This specifies the time the bot will wait before displaying the next message. There are two properties, `delay` and `typing`.
@@ -418,6 +429,17 @@ An additional text message can also be provided.
 ```
 
 Figure 9.1 Activity excerpt for a close conversation request
+
+Also, you can use the official Microsoft BotBuilder Activity Type [End of Conversation](https://docs.microsoft.com/en-us/azure/bot-service/dotnet/bot-builder-dotnet-activities?view=azure-bot-service-3.0#endofconversation) with an additional text message:
+
+```json
+{
+  "type": "endOfConversation",
+  "text": ""
+}
+```
+
+Figure 9.2 Alternative activity excerpt for a close conversation request
 
 ### Engagement attributes as context
 
